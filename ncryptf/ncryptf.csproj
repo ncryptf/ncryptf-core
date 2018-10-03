@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>ncryptf for .net core</Description>
+    <Copyright>Copyright © Charles R. Portwood II 2018 - present</Copyright>
+    <AssemblyTitle>ncryptf</AssemblyTitle>
+    <VersionPrefix>0.2.0</VersionPrefix>
+    <Authors>Charles R. Portwood II</Authors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>ncryptf</AssemblyName>
+    <PackageId>ncryptf</PackageId>
+    <PackageTags>libsodium</PackageTags>
+    <PackageLicenseUrl>https://github.com/ncryptf/ncryptf-net/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ncryptf/ncryptf-net/</RepositoryUrl>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>Library</OutputType>
+    <PackageProjectUrl>https://github.com/ncryptf/ncryptf-net/</PackageProjectUrl>
+    <RootNamespace>ncryptf</RootNamespace>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hkdf" Version="0.8.3" />
+    <PackageReference Include="Sodium.Core" Version="1.2.0" />
+  </ItemGroup>
+</Project>
