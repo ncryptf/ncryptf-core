@@ -1,4 +1,4 @@
-version: 0.2.0-{build}
+version: 0.2.0-{build}-{branch}
 
 pull_requests:
   do_not_increment_build_number: true
@@ -9,10 +9,6 @@ image:
 
 configuration:
   - Release
-
-platform:
-  - x86
-  - Any CPU
 
 matrix:
   fast_finish: true
