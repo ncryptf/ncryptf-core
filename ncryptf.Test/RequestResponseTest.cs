@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Xunit;
 using Sodium;
 using ncryptf;
@@ -36,6 +37,112 @@ namespace ncryptf.Test
         "        ]\n" +
         "    }\n" +
         "}";
+
+        [Fact]
+        public void testv2EncryptDecrypt()
+        {
+            try {
+                Request request = new Request(
+                    this.clientKeyPairSecret,
+                    this.signatureKeyPairSecret
+                );
+
+                byte[] cipher = request.Encrypt(this.payload, this.serverKeyPairPublic, 2, this.nonce);
+
+                String eCipher = Sodium.Utilities.BinaryToHex(this.expectedv2Cipher);
+                String aCipher = Sodium.Utilities.BinaryToHex(cipher);
+                Assert.Equal(eCipher, aCipher);
+
+                Response response = new Response(
+                    this.serverKeyPairSecret
+                );
+
+                String decrypted = response.Decrypt(cipher);
+                Assert.Equal(this.payload, decrypted);
+            } catch (Exception e) {
+                Assert.True(false, e.Message);
+            }
+        }
+
+
+
+        [Fact]
+        public void testv2EncryptDecryptWithEmptyPayload()
+        {
+            try {
+                Request request = new Request(
+                    this.clientKeyPairSecret,
+                    this.signatureKeyPairSecret
+                );
+
+                byte[] cipher = request.Encrypt("", this.serverKeyPairPublic, 2, this.nonce);
+
+                Response response = new Response(
+                    this.serverKeyPairSecret
+                );
+
+                String decrypted = response.Decrypt(cipher);
+                Assert.Equal("", decrypted);
+            } catch (Exception e) {
+                Assert.True(false, e.Message);
+            }
+        }
+
+        [Fact]
+        public void testv2DecryptWithSmallPayload()
+        {
+             Exception ex = Assert.Throws<ArgumentException>(() => {
+                byte[] header = Sodium.Utilities.HexToBinary("DE259002");
+                MemoryStream m = new MemoryStream();
+                m.Write(header, 0, header.Length);
+                m.Write(new byte[231], 0, 231);
+
+                Response response = new Response(
+                    this.serverKeyPairSecret
+                );
+                response.Decrypt(m.ToArray(), this.clientKeyPairPublic);
+             });
+        }
+
+        [Fact]
+        public void testv1EncryptDecrypt()
+        {
+            try {
+                Request request = new Request(
+                    this.clientKeyPairSecret,
+                    this.signatureKeyPairSecret
+                );
+                
+                byte[] cipher = request.Encrypt(this.payload, this.serverKeyPairPublic, 1, this.nonce);
+                byte[] signature = request.Sign(this.payload);
+
+                Response response = new Response(
+                    this.serverKeyPairSecret
+                );
+
+                String decrypted = response.Decrypt(cipher, this.clientKeyPairPublic, this.nonce);
+
+                String eCipher = Sodium.Utilities.BinaryToHex(this.expectedCipher);
+                String aCipher = Sodium.Utilities.BinaryToHex(cipher);
+
+                String eSignature = Sodium.Utilities.BinaryToHex(this.expectedSignature);
+                String aSignature = Sodium.Utilities.BinaryToHex(signature);
+                
+                Assert.Equal(eCipher, aCipher);
+                Assert.Equal(eSignature, aSignature);
+                Assert.Equal(payload, decrypted);
+
+                bool isSignatureValid = response.IsSignatureValid(
+                    decrypted,
+                    signature,
+                    this.signatureKeyPairPublic
+                );
+
+                Assert.True(isSignatureValid);
+            } catch (Exception e) {
+                Assert.True(false, e.Message);
+            }
+        }
 
         [Fact]
         public void testPublicKeyExtraction()

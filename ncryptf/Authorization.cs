@@ -217,25 +217,11 @@ namespace ncryptf
                 return false;
             }
 
-            if (this.memcmp(hmac, auth.GetHMAC())) {
+            if (Internal.memcmp(hmac, auth.GetHMAC())) {
                 return true;
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Constant time byte[] comparison
-        /// </summary>
-        /// <param name="a">byte[] a</param>
-        /// <param name="b">byte[] a</param>
-        /// <returns>Boolean</returns>
-        private bool memcmp(byte[] a, byte[] b)
-        {
-            uint diff = (uint)a.Length ^ (uint)b.Length;
-            for (int i = 0; i < a.Length && i < b.Length; i++)
-                diff |= (uint)(a[i] ^ b[i]);
-            return diff == 0;
         }
 
         /// <summary>

@@ -8,12 +8,26 @@ namespace ncryptf
 {
     public class Request
     {
+        /// <summary>
+        /// 32 byte secret key
+        /// </summary>
         private byte[] secretKey;
 
+        /// <summary>
+        /// 32 byte signature secret key
+        /// </summary>
         private byte[] signatureSecretKey;
 
+        /// <summary>
+        /// 24 byte nonce
+        /// </summary>
         private byte[] nonce;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="secretKey">32 byte secret key</param>
+        /// <param name="signatureSecretKey">32 byte signature secret key</param>
         public Request(byte[] secretKey, byte[] signatureSecretKey)
         {
             if (secretKey.Length != PublicKeyBox.SecretKeyBytes) {
@@ -29,21 +43,42 @@ namespace ncryptf
             this.signatureSecretKey = signatureSecretKey;
         }
 
+        /// <summary>
+        /// Encrypts data with a public key
+        /// </summary>
+        /// <param name="data">String data to encrypt</param>
+        /// <param name="publicKey">32 byte public key</param>
+        /// <returns>byte[] containing the encrypted data</returns>
         public byte[] Encrypt(String data, byte[] publicKey)
         {
             byte[] nonce = PublicKeyBox.GenerateNonce();
             return Encrypt(data, publicKey, 2, nonce);
         }
 
-        public byte[] Encrypt(String data, byte[] publicKey, int version)
+        /// <summary>
+        /// Encrypts data with a public key
+        /// </summary>
+        /// <param name="data">String data to encrypt</param>
+        /// <param name="publicKey">32 byte public key</param>
+        /// <param name="version">Int version to generated</param>
+        /// <returns>byte[] containing the encrypted data</returns>
+        public byte[] Encrypt(String data, byte[] publicKey, int version = 2)
         {
             byte[] nonce = PublicKeyBox.GenerateNonce();
             return Encrypt(data, publicKey, version, nonce);
         }
 
-        public byte[] Encrypt(String data, byte[] remotePublicKey, int version, byte[] nonce)
+        /// <summary>
+        /// Encrypts data with a public key
+        /// </summary>
+        /// <param name="data">String data to encrypt</param>
+        /// <param name="publicKey">32 byte public key</param>
+        /// <param name="version">Int version to generated</param>
+        /// <param name="nonce">24 byte nonce.</param>
+        /// <returns>byte[] containing the encrypted data</returns>
+        public byte[] Encrypt(String data, byte[] publicKey, int version, byte[] nonce)
         {
-            if (remotePublicKey.Length != PublicKeyBox.PublicKeyBytes) {
+            if (publicKey.Length != PublicKeyBox.PublicKeyBytes) {
                 throw new ArgumentException(String.Format("Public key should be %d bytes", PublicKeyBox.PublicKeyBytes));
             }
             
@@ -55,13 +90,13 @@ namespace ncryptf
             if (version == 2) {
                 try {
                     byte[] header = Sodium.Utilities.HexToBinary("DE259002");
-                    byte[] body = this.EncryptBody(data, remotePublicKey, nonce);
+                    byte[] body = this.EncryptBody(data, publicKey, nonce);
 
                     if (body == null) {
                         throw new EncryptionFailedException();
                     }
 
-                    byte[] publicKey = ScalarMult.Base(this.secretKey);
+                    publicKey = ScalarMult.Base(this.secretKey);
                     byte[] sigPubKey = PublicKeyAuth.ExtractEd25519PublicKeyFromEd25519SecretKey(this.signatureSecretKey);
 
                     byte[] signature = this.Sign(data);
@@ -88,10 +123,17 @@ namespace ncryptf
                 }
             }
 
-            return this.EncryptBody(data, remotePublicKey, nonce);
+            return this.EncryptBody(data, publicKey, nonce);
 
         }
 
+        /// <summary>
+        /// Encrypts a message with a public key and nonce
+        /// </summary>
+        /// <param name="data">String data to encrypt</param>
+        /// <param name="publicKey">32 byte public key</param>
+        /// <param name="nonce">24 byte nonce</param>
+        /// <returns>byte[] encrypted data</returns>
         private byte[] EncryptBody(String data, byte[] publicKey, byte[] nonce)
         {
             if (publicKey.Length != PublicKeyBox.PublicKeyBytes) {
@@ -114,6 +156,11 @@ namespace ncryptf
             }
         }
 
+        /// <summary>
+        /// Generated a detached signature from the provided data
+        /// </summary>
+        /// <param name="data">String payload to sign</param>
+        /// <returns>byte[] of the detached signature</returns>
         public byte[] Sign(String data)
         {
             try {
@@ -123,9 +170,10 @@ namespace ncryptf
             }
         }
 
-        public byte[] GetNonce()
-        {
-            return this.nonce;
-        }
+        /// <summary>
+        /// Returns the generated or provided 24 byte noce
+        /// </summary>
+        /// <returns>byte[]</returns>
+        public byte[] GetNonce() => this.nonce;
     }
 }
