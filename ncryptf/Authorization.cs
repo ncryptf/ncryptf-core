@@ -5,6 +5,9 @@ using AronParker.Hkdf;
 
 namespace ncryptf
 {
+    /// <summary>
+    /// Generates a signed authentication header
+    /// </summary>
     public class Authorization
     {
         /// <summary>

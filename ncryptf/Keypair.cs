@@ -4,7 +4,9 @@ using Sodium.Exceptions;
 
 namespace ncryptf
 {
-    /// <summary>A public / private key pair.</summary>
+    /// <summary>
+    /// Representation of a public and private key
+    /// </summary>
     public class Keypair
     {
         private readonly byte[] _publicKey;

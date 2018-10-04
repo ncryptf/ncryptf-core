@@ -6,6 +6,9 @@ using ncryptf.Exceptions;
 
 namespace ncryptf
 {
+    /// <summary>
+    /// Encrypts a request
+    /// </summary>
     public class Request
     {
         /// <summary>
@@ -33,7 +36,7 @@ namespace ncryptf
             if (secretKey.Length != PublicKeyBox.SecretKeyBytes) {
                 throw new ArgumentException(String.Format("Secret key should be %d bytes", PublicKeyBox.SecretKeyBytes));
             }
-            
+
             this.secretKey = secretKey;
 
             if (signatureSecretKey.Length != 64) { // PublicKeyAuth.SECRET_KEY_BYTES
@@ -81,7 +84,7 @@ namespace ncryptf
             if (publicKey.Length != PublicKeyBox.PublicKeyBytes) {
                 throw new ArgumentException(String.Format("Public key should be %d bytes", PublicKeyBox.PublicKeyBytes));
             }
-            
+
             if (nonce.Length != 24) {
                 throw new ArgumentException(String.Format("Nonce should be %d bytes", 24));
             }
@@ -114,7 +117,7 @@ namespace ncryptf
 
                     byte[] payload = m.ToArray();
                     byte[] checksum = GenericHash.Hash(payload, nonce, 64);
-                
+
                     m.Write(checksum, 0, checksum.Length);
 
                     return m.ToArray();

@@ -1,5 +1,8 @@
 namespace ncryptf
 {
+    /// <summary>
+    /// Internal tools used by this assembly
+    /// </summary>
     internal class Internal
     {
         /// <summary>

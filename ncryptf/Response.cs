@@ -4,6 +4,9 @@ using ncryptf.Exceptions;
 
 namespace ncryptf
 {
+    /// <summary>
+    /// Decrypts a response
+    /// </summary>
     public class Response
     {
         /// <summary>

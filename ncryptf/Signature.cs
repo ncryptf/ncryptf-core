@@ -5,6 +5,9 @@ using System.Security.Cryptography;
 
 namespace ncryptf
 {
+    /// <summary>
+    /// Generates a signature for use with ncryptf.Authentication
+    /// </summary>
     public class Signature
     {
         /// <summary>
