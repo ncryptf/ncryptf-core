@@ -1,10 +1,11 @@
 # ncryptf .Net Core
 
-[![TravisCI](https://img.shields.io/travis/ncryptf/ncryptf-core.svg?style=flat-square "TravisCI")](https://travis-ci.com/ncryptf/ncryptf-core)
+[![AppVeyor](https://img.shields.io/appveyor/ci/charlesportwoodii/ncryptf-core.svg?style=flat-square "TravisCI")](https://ci.appveyor.com/project/charlesportwoodii/ncryptf-core)
+[![AppVeyor](https://img.shields.io/appveyor/tests/charlesportwoodii/ncryptf-core.svg?style=flat-square "TravisCI")](https://ci.appveyor.com/project/charlesportwoodii/ncryptf-core)
 [![License](https://img.shields.io/badge/license-BSD-orange.svg?style=flat-square "License")](https://github.com/ncryptf/ncryptf-core/blob/master/LICENSE.md)
 
 <center>
-    <img src="https://github.com/charlesportwoodii/ncryptf-core/blob/master/logo.png?raw=true" alt="ncryptf logo" width="400px"/>
+    <img src="https://github.com/ncryptf/ncryptf-core/blob/master/logo.png?raw=true" alt="ncryptf logo" width="400px"/>
 </center>
 
 A library for facilitating hashed based KDF signature authentication, and end-to-end encrypted communication with compatible API's.

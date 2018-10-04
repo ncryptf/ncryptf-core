@@ -1,0 +1,53 @@
+version: 0.2.0-{build}
+
+pull_requests:
+  do_not_increment_build_number: true
+
+image:
+  - Visual Studio 2017
+  - Ubuntu1804
+
+configuration:
+  - Debug
+  - Release
+
+platform:
+  - x86
+  - Any CPU
+
+matrix:
+  fast_finish: true
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+nuget:
+  disable_publish_on_pr: true
+
+before_build:
+- cmd: >-
+    dotnet --version
+    dotnet restore --verbosity m
+
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  include_nuget_references: true
+  parallel: true
+  verbosity: normal
+
+after_build:
+  - cmd: dotnet publish ./ncryptf/ncryptf.csproj -c Release
+
+test:
+  assemblies:
+    only:
+      - ncryptf.Test
+
+artifacts:
+  - path: bin/Release/netstandard2.0/publish
