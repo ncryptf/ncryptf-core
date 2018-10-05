@@ -72,6 +72,7 @@ namespace ncryptf
         public String Decrypt(byte[] response, byte[] publicKey, byte[] nonce)
         {
             int version = GetVersion(response);
+
             if (nonce.Length != 24) {
                 throw new ArgumentException(String.Format("Nonce should be %d bytes.", 24));
             }
@@ -128,15 +129,19 @@ namespace ncryptf
         /// <returns>Decrypted message as a string</returns>
         private String DecryptBody(byte[] response, byte[] publicKey, byte[] nonce)
         {
+            if (publicKey.Length != PublicKeyBox.PublicKeyBytes) {
+                throw new ArgumentException(String.Format("Public key should be %d bytes.", PublicKeyBox.PublicKeyBytes));
+            }
+
+            if (nonce.Length < 24) { // PublicKeyBox.NONCEBYTES
+                throw new ArgumentException(String.Format("Message should be at minimum %d bytes.", 2));
+            }
+
+            if (response.Length < 16) { // PublicKeyBox.MAC_BYTES
+                throw new ArgumentException(String.Format("Message should be at minimum %d bytes.", 16));
+            }
+
             try {
-                if (publicKey.Length != PublicKeyBox.PublicKeyBytes) {
-                    throw new ArgumentException(String.Format("Public key should be %d bytes.", PublicKeyBox.PublicKeyBytes));
-                }
-
-                if (response.Length < 16) { // PublicKeyBox.MAC_BYTES
-                    throw new ArgumentException(String.Format("Message should be at minimum %d bytes.", 16));
-                }
-
                 byte[] message = PublicKeyBox.Open(
                     response,
                     nonce,
@@ -146,7 +151,6 @@ namespace ncryptf
 
                 return System.Text.Encoding.UTF8.GetString(message);
             } catch (Exception e) {
-                Console.WriteLine(e);
                 throw new DecryptionFailedException("Unable to decrypt message.", e);
             }
         }
@@ -160,6 +164,14 @@ namespace ncryptf
         /// <returns>`true` if the signature is valid, and false otherwise</returns>
         public bool IsSignatureValid(String response, byte[] signature, byte[] publicKey)
         {
+            if (signature.Length != 64) {
+                throw new ArgumentException(String.Format("Signature should be %d bytes.", 64));
+            }
+
+            if (publicKey.Length != 32) {
+                throw new ArgumentException(String.Format("Public key should be %d bytes.", 64));
+            }
+
             try {
                 return PublicKeyAuth.VerifyDetached(
                     signature,

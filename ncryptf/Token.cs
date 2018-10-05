@@ -44,7 +44,16 @@ namespace ncryptf
         {
             this._accessToken = accessToken;
             this._refreshToken = refreshToken;
+
+            if (ikm.Length != 32) {
+                throw new ArgumentException(String.Format("Initial key material should be %d bytes.", 32));
+            }
             this._ikm = ikm;
+
+            if (signature.Length != 64) {
+                throw new ArgumentException(String.Format("Signature secret key should be %d bytes.", 64));
+            }
+            
             this._signature = signature;
             this._expiresAt = expiresAt;
         }

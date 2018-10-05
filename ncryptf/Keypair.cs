@@ -1,6 +1,4 @@
 using System;
-using System.Security.Cryptography;
-using Sodium.Exceptions;
 
 namespace ncryptf
 {
@@ -21,12 +19,17 @@ namespace ncryptf
         public Keypair(byte[] publicKey, byte[] secretKey)
         {
             //verify that the private key length is a multiple of 16
-            if (secretKey.Length % 16 != 0)
-                throw new KeyOutOfRangeException("Private Key length must be a multiple of 16 bytes.");
-
-            this._publicKey = publicKey;
+            if (secretKey.Length % 16 != 0) {
+                throw new ArgumentException("Secret Key length must be a multiple of 16 bytes.");
+            }
 
             this._secretKey = secretKey;
+
+            if (publicKey.Length % 4 != 0) {
+                throw new ArgumentException("Public Key length must be a multiple of 4 bytes.");
+            }
+            
+            this._publicKey = publicKey;
         }
 
         /// <summary>
