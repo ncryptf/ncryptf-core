@@ -43,7 +43,7 @@ Supporting API's will return the following payload containing at minimum the fol
     "access_token": "7XF56VIP7ZQQOLGHM6MRIK56S2QS363ULNB5UKNFMJRQVYHQH7IA",
     "refresh_token": "MA2JX5FXWS57DHW4OIHHQDCJVGS3ZKKFCL7XM4GNOB567I6ER4LQ",
     "ikm": "bDEyECRvKKE8w81fX4hz/52cvHsFPMGeJ+a9fGaVvWM=",
-    "signing": "ecYXfAwNVoS9ePn4xWhiJOdXQzr6LpJIeIn4AVju/Ug=",
+    "signing": "7v/CdiGoEI7bcj7R2EyDPH5nrCd2+7rHYNACB+Kf2FMx405und2KenGjNpCBPv0jOiptfHJHiY3lldAQTGCdqw==",
     "expires_at": 1472678411
 }
 ```
@@ -87,7 +87,7 @@ Token token = new Token(
     "x2gMeJ5Np0CcKpZav+i9iiXeQBtaYMQ/yeEtcOgY3J",
     "LRSEe5zHb1aq20Hr9te2sQF8sLReSkO8bS1eD/9LDM8",
     System.Convert.FromBase64String("f2mTaH9vkZZQyF7SxVeXDlOSDbVwjUzhdXv2T/YYO8k="),
-    System.Convert.FromBase64String("waWBMawHD1zpAFRcX7e45L1aqsA3mEeSOwXqq4l1i3I="),
+    System.Convert.FromBase64String("7v/CdiGoEI7bcj7R2EyDPH5nrCd2+7rHYNACB+Kf2FMx405und2KenGjNpCBPv0jOiptfHJHiY3lldAQTGCdqw=="),
     ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds()
 );
 
