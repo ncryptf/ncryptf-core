@@ -10,13 +10,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>ncryptf</AssemblyName>
     <PackageId>ncryptf</PackageId>
-    <PackageTags>libsodium</PackageTags>
-    <PackageLicenseUrl>https://github.com/ncryptf/ncryptf-net/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>ncryptf;hkdf;hmac;authentication;api;end-to-end-encryption;sodium;libsodium;security;c-sharp;dotnet-core;dotnetcore;</PackageTags>
+    <PackageLicenseUrl>https://github.com/ncryptf/ncryptf-core/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/ncryptf/ncryptf-net/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/ncryptf/ncryptf-core/</RepositoryUrl>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputType>Library</OutputType>
-    <PackageProjectUrl>https://github.com/ncryptf/ncryptf-net/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/ncryptf/ncryptf-core/</PackageProjectUrl>
     <RootNamespace>ncryptf</RootNamespace>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
