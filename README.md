@@ -2,6 +2,7 @@
 
 [![AppVeyor](https://img.shields.io/appveyor/ci/charlesportwoodii/ncryptf-core.svg?style=flat-square "TravisCI")](https://ci.appveyor.com/project/charlesportwoodii/ncryptf-core)
 [![AppVeyor](https://img.shields.io/appveyor/tests/charlesportwoodii/ncryptf-core.svg?style=flat-square "TravisCI")](https://ci.appveyor.com/project/charlesportwoodii/ncryptf-core)
+[![Nuget](https://img.shields.io/nuget/vpre/ncryptf.svg?style=flat-square)](https://www.nuget.org/packages/ncryptf/)
 [![License](https://img.shields.io/badge/license-BSD-orange.svg?style=flat-square "License")](https://github.com/ncryptf/ncryptf-core/blob/master/LICENSE.md)
 
 <center>
