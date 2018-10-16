@@ -1,4 +1,5 @@
 using System;
+using Sodium;
 
 namespace ncryptf
 {
@@ -53,7 +54,7 @@ namespace ncryptf
             if (signature.Length != 64) {
                 throw new ArgumentException(String.Format("Signature secret key should be %d bytes.", 64));
             }
-            
+
             this._signature = signature;
             this._expiresAt = expiresAt;
         }
@@ -101,6 +102,15 @@ namespace ncryptf
         public long ExpiresAt
         {
             get { return this._expiresAt; }
+        }
+
+        /// <summary>
+        /// Extracts the signature public key from the provided private key
+        /// </summary>
+        /// <returns>32 byte signature public key</returns>
+        public byte[] GetSignaturePublicKey()
+        {
+            return PublicKeyAuth.ExtractEd25519PublicKeyFromEd25519SecretKey(this._signature);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace ncryptf
             using (SHA256 sha256 = SHA256.Create()) {
                 byte[] hash = sha256.ComputeHash(dataBytes);
                 return Sodium.Utilities.BinaryToHex(hash).ToLower();
-            }            
+            }
         }
     }
 }

@@ -118,7 +118,7 @@ namespace ncryptf
             this.token = token;
 
            Hkdf hkdf = new Hkdf(HashAlgorithmName.SHA256);
-           
+
            byte[] kdf = hkdf.Expand(
                hkdf.Extract(token.IKM, salt),
                32,

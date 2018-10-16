@@ -8,7 +8,7 @@ namespace ncryptf
     public class Keypair
     {
         private readonly byte[] _publicKey;
-        
+
         private readonly byte[] _secretKey;
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace ncryptf
             if (publicKey.Length % 4 != 0) {
                 throw new ArgumentException("Public Key length must be a multiple of 4 bytes.");
             }
-            
+
             this._publicKey = publicKey;
         }
 

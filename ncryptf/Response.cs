@@ -205,6 +205,27 @@ namespace ncryptf
         }
 
         /// <summary>
+        /// Extracts the 32 byte signature public key from the response
+        /// </summary>
+        /// <param name="response">byte[] response</param>
+        /// <returns>32 byte signature public key</returns>
+        public static byte[] GetSigningPublicKeyFromResponse(byte[] response)
+        {
+            int version = GetVersion(response);
+            if (version == 2) {
+                if (response.Length < 236) {
+                    throw new ArgumentException();
+                }
+
+                byte[] publicKey = new byte[32];
+                Array.Copy(response, (response.Length - 160), publicKey, 0, 32);
+                return publicKey;
+            }
+
+            throw new ArgumentException("The response provided is not suitable for public key extraction.");
+        }
+
+        /// <summary>
         /// Determines the version of an encrypted message
         /// </summary>
         /// <param name="response">The byte array encrypted message</param>

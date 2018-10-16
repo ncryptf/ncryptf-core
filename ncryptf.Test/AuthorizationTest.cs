@@ -68,7 +68,7 @@ namespace ncryptf.Test
                 Assert.False(auth.Verify(hmac, auth, 90));
             }
         }
-    
+
         [Fact]
         public void testVerify()
         {

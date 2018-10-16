@@ -11,7 +11,7 @@ namespace ncryptf.Test
             get; private set;
         }
 
-        public DateTime Date 
+        public DateTime Date
         {
             get; private set;
         }

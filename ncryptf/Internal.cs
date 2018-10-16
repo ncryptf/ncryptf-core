@@ -18,6 +18,6 @@ namespace ncryptf
                 diff |= (uint)(a[i] ^ b[i]);
             }
             return diff == 0;
-        } 
+        }
     }
 }

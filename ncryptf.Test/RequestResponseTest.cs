@@ -10,7 +10,7 @@ namespace ncryptf.Test
     {
         private byte[] clientKeyPairSecret = System.Convert.FromBase64String("bvV/vnfB43spmprI8aBK/Fd8xxSBlx7EhuxfxxTVI2o=");
         private byte[] clientKeyPairPublic = System.Convert.FromBase64String("Ojnr0KQy6GJ6x+eQa+wNwdHejZo8vY5VNyZY5NfwBjU=");
-        
+
         private byte[] serverKeyPairSecret = System.Convert.FromBase64String("gH1+ileX1W5fMeOWue8HxdREnK04u72ybxCQgivWoZ4=");
         private byte[] serverKeyPairPublic = System.Convert.FromBase64String("YU74X2OqHujLVDH9wgEHscD5eyiLPvcugRUZG6R3BB8=");
 
@@ -112,7 +112,7 @@ namespace ncryptf.Test
                     this.clientKeyPairSecret,
                     this.signatureKeyPairSecret
                 );
-                
+
                 byte[] cipher = request.Encrypt(this.payload, this.serverKeyPairPublic, 1, this.nonce);
                 byte[] signature = request.Sign(this.payload);
 
@@ -127,7 +127,7 @@ namespace ncryptf.Test
 
                 String eSignature = Sodium.Utilities.BinaryToHex(this.expectedSignature);
                 String aSignature = Sodium.Utilities.BinaryToHex(signature);
-                
+
                 Assert.Equal(eCipher, aCipher);
                 Assert.Equal(eSignature, aSignature);
                 Assert.Equal(payload, decrypted);
