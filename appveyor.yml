@@ -7,6 +7,12 @@ image:
   - Visual Studio 2017
   - Ubuntu1804
 
+environment:
+  ACCESS_TOKEN:
+    secure: 5eRS/D19C7CpbD+vIetjgnH/gIgFXnXcTofCMO/aODo=
+  NCRYPTF_TEST_API:
+    secure: 4vpB/+IPUL0gtP71pQN95reJCgkaxQ6nj1JGDqVYosg=
+
 configuration:
   - Release
 
