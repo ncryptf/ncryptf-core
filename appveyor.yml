@@ -12,6 +12,7 @@ configuration:
 
 matrix:
   fast_finish: true
+
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
