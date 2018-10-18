@@ -15,7 +15,7 @@ namespace ncryptf.Test
         }
 
         [Fact]
-        public void testv1Signatures()
+        public void Testv1Signatures()
         {
             int index = 0;
             foreach (TestCase test in this.fixture.testCases) {
@@ -34,7 +34,7 @@ namespace ncryptf.Test
         }
 
         [Fact]
-        public void testv2Signatures()
+        public void Testv2Signatures()
         {
             int index = 0;
             foreach (TestCase test in this.fixture.testCases) {

@@ -39,7 +39,7 @@ namespace ncryptf.Test
         "}";
 
         [Fact]
-        public void testv2EncryptDecrypt()
+        public void Testv2EncryptDecrypt()
         {
             try {
                 Request request = new Request(
@@ -64,10 +64,31 @@ namespace ncryptf.Test
             }
         }
 
+        [Fact]
+        public void TestDecryptEmptyString()
+        {
+            try {
+                Request request = new Request(
+                    this.clientKeyPairSecret,
+                    this.signatureKeyPairSecret
+                );
+
+                byte[] cipher = request.Encrypt("", this.serverKeyPairPublic, 2, this.nonce);
+
+                Response response = new Response(
+                    this.serverKeyPairSecret
+                );
+
+                String decrypted = response.Decrypt(cipher);
+                Assert.Equal("", decrypted);
+            } catch (Exception e) {
+                Assert.True(false, e.Message);
+            }
+        }
 
 
         [Fact]
-        public void testv2EncryptDecryptWithEmptyPayload()
+        public void Testv2EncryptDecryptWithEmptyPayload()
         {
             try {
                 Request request = new Request(
@@ -89,7 +110,7 @@ namespace ncryptf.Test
         }
 
         [Fact]
-        public void testv2DecryptWithSmallPayload()
+        public void Testv2DecryptWithSmallPayload()
         {
              Exception ex = Assert.Throws<ArgumentException>(() => {
                 byte[] header = Sodium.Utilities.HexToBinary("DE259002");
@@ -105,7 +126,7 @@ namespace ncryptf.Test
         }
 
         [Fact]
-        public void testv1EncryptDecrypt()
+        public void Testv1EncryptDecrypt()
         {
             try {
                 Request request = new Request(
@@ -145,14 +166,14 @@ namespace ncryptf.Test
         }
 
         [Fact]
-        public void testPublicKeyExtraction()
+        public void TestPublicKeyExtraction()
         {
             byte[] publicKey = Response.GetPublicKeyFromResponse(this.expectedv2Cipher);
             Assert.Equal(Sodium.Utilities.BinaryToHex(this.clientKeyPairPublic), Sodium.Utilities.BinaryToHex(publicKey));
         }
 
         [Fact]
-        public void testVersion()
+        public void TestVersion()
         {
             Assert.Equal(1, Response.GetVersion(this.expectedCipher));
             Assert.Equal(2, Response.GetVersion(this.expectedv2Cipher));
